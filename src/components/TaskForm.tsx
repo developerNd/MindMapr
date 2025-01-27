@@ -22,6 +22,9 @@ const taskSchema = z.object({
 })
 
 type TaskFormData = z.infer<typeof taskSchema>
+type Priority = "High" | "Medium" | "Low"
+type TimeBlock = "Morning" | "Afternoon" | "Evening"
+type RecurrencePattern = "Daily" | "Weekly" | "Monthly"
 
 interface TaskFormProps {
   onAddTask: (task: Omit<Task, "id" | "status" | "pomodoroCount">) => void
@@ -68,7 +71,9 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
 
       <div>
         <Label htmlFor="priority">Priority</Label>
-        <Select onValueChange={(value) => register("priority").onChange({ target: { value } })}>
+        <Select onValueChange={(value: Priority) => 
+          register("priority").onChange({ target: { value } })
+        }>
           <SelectTrigger>
             <SelectValue placeholder="Select priority" />
           </SelectTrigger>
@@ -88,7 +93,9 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
 
       <div>
         <Label htmlFor="timeBlock">Time Block</Label>
-        <Select onValueChange={(value) => register("timeBlock").onChange({ target: { value } })}>
+        <Select onValueChange={(value: TimeBlock) => 
+          register("timeBlock").onChange({ target: { value } })
+        }>
           <SelectTrigger>
             <SelectValue placeholder="Select time block" />
           </SelectTrigger>
@@ -109,7 +116,7 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
         <Switch
           id="isRecurring"
           checked={isRecurring}
-          onCheckedChange={(checked) => {
+          onCheckedChange={(checked: boolean) => {
             setIsRecurring(checked)
             register("isRecurring").onChange({ target: { value: checked } })
           }}
@@ -120,7 +127,9 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
       {isRecurring && (
         <div>
           <Label htmlFor="recurrencePattern">Recurrence Pattern</Label>
-          <Select onValueChange={(value) => register("recurrencePattern").onChange({ target: { value } })}>
+          <Select onValueChange={(value: RecurrencePattern) => 
+            register("recurrencePattern").onChange({ target: { value } })
+          }>
             <SelectTrigger>
               <SelectValue placeholder="Select recurrence pattern" />
             </SelectTrigger>

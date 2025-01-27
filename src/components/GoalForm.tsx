@@ -64,7 +64,9 @@ export default function GoalForm({ onAddGoal }: GoalFormProps) {
 
       <div>
         <Label htmlFor="type">Goal Type</Label>
-        <Select onValueChange={(value) => register("type").onChange({ target: { value } })}>
+        <Select onValueChange={(value: "Weekly" | "Monthly") => 
+          register("type").onChange({ target: { value } })
+        }>
           <SelectTrigger>
             <SelectValue placeholder="Select goal type" />
           </SelectTrigger>
